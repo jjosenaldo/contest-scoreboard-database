@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class DBUtils
 {
-    public static final String URL = "jdbc:postgresql://localhost/teste_jdbc";
+    public static final String URL = "jdbc:postgresql://localhost/db_final_project";
     public static final String USER = "pg_josenaldo";
     public static final String PASSWORD = "1234";
     
