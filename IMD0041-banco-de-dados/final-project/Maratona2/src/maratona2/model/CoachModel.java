@@ -5,28 +5,26 @@
  */
 package maratona2.model;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import maratona2.domain.Coach;
-import maratona2.utils.DBUtils;
+import maratona2.domain.Entity;
 
 /**
  *
  * @author josenaldo
  */
-public class CoachModel {
-    private Connection connection;
+public class CoachModel extends AbstractModel{
     
-    public void insert(Coach newCoach) throws SQLException
+    public CoachModel(String sql_insert)
     {
-        String sql = "INSERT INTO Coach (name) VALUES (?)";
-        PreparedStatement statement = this.prepareStatement(sql);
-        
-        statement.setString(1, newCoach.getName());
-        statement.execute();
-        
-        this.connection.close();
+        super(sql_insert);
+    }
+    
+    @Override
+    protected void setStatementParams(PreparedStatement statement, Entity entity) throws SQLException
+    {
+        statement.setString(1, ((Coach)entity).getName());
     }
     
     public void update(Coach coach)
@@ -39,16 +37,4 @@ public class CoachModel {
         System.out.println("Coach deleted!");
     }
     
-    private void setConnection() throws SQLException
-    {
-        if(this.connection == null || this.connection.isClosed())
-            this.connection = DBUtils.getConnection();
-    }
-    
-    private PreparedStatement prepareStatement(String command) throws SQLException
-    {
-        this.setConnection();
-        
-        return this.connection.prepareStatement(command);
-    }   
 }

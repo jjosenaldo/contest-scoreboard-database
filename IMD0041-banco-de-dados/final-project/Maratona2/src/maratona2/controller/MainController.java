@@ -5,26 +5,17 @@
  */
 package maratona2.controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.fxml.JavaFXBuilderFactory;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import maratona2.Main;
 
 /**
  *
  * @author josenaldo
  */
-public class MainController implements Initializable {
+public class MainController extends AbstractController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -33,35 +24,6 @@ public class MainController implements Initializable {
     @FXML
     private void handleBtnCoachAction(ActionEvent event)
     {
-        replaceSceneContent("view/Coach.fxml");
-    }
-    
-    private void replaceSceneContent(String fxml)
-    {
-        Stage stage = Main.getMainStage();
-        Parent page;
-
-        try
-        {
-            page = (Parent) FXMLLoader.load(Main.class.getResource(fxml), null, new JavaFXBuilderFactory());
-            Scene scene = stage.getScene();
-            if (scene == null)
-            {
-                scene = new Scene(page);
-                stage.setScene(scene);
-            }
-
-            else
-            {
-                stage.getScene().setRoot(page);
-            }
-            stage.sizeToScene();
-        
-        }
-        
-        catch (IOException ex)
-        {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
-        }
+        replaceSceneContent("/maratona2/view/Coach.fxml");
     }
 }
