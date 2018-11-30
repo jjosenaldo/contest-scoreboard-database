@@ -9,8 +9,7 @@ package maratona2.domain;
  *
  * @author josenaldo
  */
-public class Coach {
-    private int idcoach;
+public class Coach extends Entity{
     private String name;
 
     public Coach(String name) {
@@ -18,16 +17,8 @@ public class Coach {
     }
 
     public Coach(int idcoach, String name) {
-        this.idcoach = idcoach;
+        super(idcoach);
         this.name = name;
-    }
-
-    public int getIdcoach() {
-        return idcoach;
-    }
-
-    public void setIdcoach(int idcoach) {
-        this.idcoach = idcoach;
     }
 
     public String getName() {
@@ -36,5 +27,11 @@ public class Coach {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return this.name;
     }
 }
