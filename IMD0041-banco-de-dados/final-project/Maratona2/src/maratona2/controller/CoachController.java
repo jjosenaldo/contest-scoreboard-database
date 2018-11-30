@@ -5,6 +5,7 @@
  */
 package maratona2.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -12,9 +13,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import maratona2.Main;
 import maratona2.domain.Coach;
 import maratona2.model.CoachModel;
 
@@ -24,7 +31,7 @@ import maratona2.model.CoachModel;
  * @author josenaldo
  */
 public class CoachController implements Initializable {
-    private CoachModel coachModel; 
+    private final CoachModel coachModel; 
     private Coach selectedCoach;
     
     @FXML
@@ -32,6 +39,9 @@ public class CoachController implements Initializable {
     
     @FXML
     private Button btnSave;
+    
+    @FXML
+    private Button btnBack;
     
     public CoachController()
     {
@@ -66,7 +76,8 @@ public class CoachController implements Initializable {
             
     }
     
-    @FXML private void handleBtnDeleteAction(ActionEvent event)
+    @FXML
+    private void handleBtnDeleteAction(ActionEvent event)
     {
         if(this.selectedCoach != null)
         {
@@ -75,16 +86,42 @@ public class CoachController implements Initializable {
         }
     }
     
+    @FXML
+    private void handleBtnBackAction(ActionEvent event)
+    {
+        Parent page;
+        Stage stage = Main.getMainStage();
+        String fxml = "/maratona2/view/Main.fxml";
+
+        try
+        {
+            page = (Parent) FXMLLoader.load(getClass().getResource(fxml), null, new JavaFXBuilderFactory());
+            Scene scene = stage.getScene();
+            if (scene == null)
+            {
+                scene = new Scene(page);
+                stage.setScene(scene);
+            }
+
+            else
+            {
+                stage.getScene().setRoot(page);
+            }
+            stage.sizeToScene();
+        
+        }
+        
+        catch (IOException ex)
+        {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void clearFields()
     {
         txtName.setText("");
     }
-    
-    /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
-     */
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

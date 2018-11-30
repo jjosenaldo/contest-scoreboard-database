@@ -25,8 +25,6 @@ import maratona2.Main;
  * @author josenaldo
  */
 public class MainController implements Initializable {
-    private Stage stage;
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -40,34 +38,30 @@ public class MainController implements Initializable {
     
     private void replaceSceneContent(String fxml)
     {
+        Stage stage = Main.getMainStage();
         Parent page;
 
         try
         {
             page = (Parent) FXMLLoader.load(Main.class.getResource(fxml), null, new JavaFXBuilderFactory());
             Scene scene = stage.getScene();
-        if (scene == null)
-        {
-            scene = new Scene(page, 700, 450);
-            stage.setScene(scene);
-        }
-        
-        else
-        {
-            stage.getScene().setRoot(page);
-        }
-        stage.sizeToScene();
+            if (scene == null)
+            {
+                scene = new Scene(page);
+                stage.setScene(scene);
+            }
+
+            else
+            {
+                stage.getScene().setRoot(page);
+            }
+            stage.sizeToScene();
         
         }
         
         catch (IOException ex)
         {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    public void setStage(Stage stage)
-    {
-        this.stage = stage;
     }
 }
