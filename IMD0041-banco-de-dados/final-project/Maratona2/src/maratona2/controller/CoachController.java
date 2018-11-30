@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import maratona2.domain.Coach;
+import maratona2.model.AbstractModel;
 import maratona2.model.CoachModel;
 
 /**
@@ -20,15 +21,14 @@ import maratona2.model.CoachModel;
  * @author josenaldo
  */
 public class CoachController extends AbstractDataController {
-    private final CoachModel coachModel; 
     
     @FXML
     private TextField txtName;
     
     public CoachController()
     {
-        this.coachModel = new CoachModel("INSERT INTO Coach (name) VALUES (?)");
-        this.selected = null;
+        super();
+        this.model = new CoachModel("INSERT INTO Coach (name) VALUES (?)","SELECT idcoach, name FROM coach", "DELETE FROM Coach WHERE idcoach = ?", null);
     }
         
     @FXML
@@ -38,7 +38,7 @@ public class CoachController extends AbstractDataController {
             try
             {
                 if(!txtName.getText().trim().isEmpty())
-                    this.coachModel.insert(new Coach(txtName.getText()));
+                    this.model.insert(new Coach(txtName.getText()));
             }
             
             catch (SQLException ex)
@@ -56,16 +56,6 @@ public class CoachController extends AbstractDataController {
             this.clearFields();
         }
             
-    }
-    
-    @FXML
-    private void handleBtnDeleteAction(ActionEvent event)
-    {
-        if(this.selected != null)
-        {
-         //   this.coachModel.delete(this.selected);
-            this.selected = null;
-        }
     }
     
     @Override
