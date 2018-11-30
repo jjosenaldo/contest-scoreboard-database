@@ -5,17 +5,14 @@
  */
 package maratona2.controller;
 
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import maratona2.domain.Coach;
+import maratona2.model.AbstractModel;
 import maratona2.model.CoachModel;
 
 /**
@@ -23,30 +20,25 @@ import maratona2.model.CoachModel;
  *
  * @author josenaldo
  */
-public class CoachController implements Initializable {
-    private CoachModel coachModel; 
-    private Coach selectedCoach;
+public class CoachController extends AbstractDataController {
     
     @FXML
     private TextField txtName;
     
-    @FXML
-    private Button btnSave;
-    
     public CoachController()
     {
-        this.coachModel = new CoachModel();
-        this.selectedCoach = null;
+        super();
+        this.model = new CoachModel("INSERT INTO Coach (name) VALUES (?)","SELECT idcoach, name FROM coach", "DELETE FROM Coach WHERE idcoach = ?", null);
     }
         
     @FXML
     private void handleBtnSaveAction(ActionEvent event) {
-        if(this.selectedCoach == null)
+        if(this.selected == null)
         {
             try
             {
                 if(!txtName.getText().trim().isEmpty())
-                    this.coachModel.insert(new Coach(txtName.getText()));
+                    this.model.insert(new Coach(txtName.getText()));
             }
             
             catch (SQLException ex)
@@ -59,35 +51,16 @@ public class CoachController implements Initializable {
         
         else
         {
-            this.coachModel.update(this.selectedCoach);
-            this.selectedCoach = null;
+        //    this.coachModel.update(this.selected);
+            this.selected = null;
             this.clearFields();
         }
             
     }
     
-    @FXML private void handleBtnDeleteAction(ActionEvent event)
-    {
-        if(this.selectedCoach != null)
-        {
-            this.coachModel.delete(this.selectedCoach);
-            this.selectedCoach = null;
-        }
-    }
-    
-    private void clearFields()
+    @Override
+    protected void clearFields()
     {
         txtName.setText("");
     }
-    
-    /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
 }
