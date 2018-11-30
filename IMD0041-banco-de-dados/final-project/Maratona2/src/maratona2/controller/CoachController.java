@@ -45,7 +45,8 @@ public class CoachController implements Initializable {
         {
             try
             {
-                this.coachModel.insert(new Coach(txtName.getText()));
+                if(!txtName.getText().trim().isEmpty())
+                    this.coachModel.insert(new Coach(txtName.getText()));
             }
             
             catch (SQLException ex)
