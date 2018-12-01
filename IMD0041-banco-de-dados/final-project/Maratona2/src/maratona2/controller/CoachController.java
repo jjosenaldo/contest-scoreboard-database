@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import maratona2.domain.Coach;
 import maratona2.domain.Entity;
-import maratona2.model.AbstractModel;
 import maratona2.model.CoachModel;
 
 /**

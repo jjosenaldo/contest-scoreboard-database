@@ -34,6 +34,9 @@ public abstract class AbstractDataController extends AbstractController
     protected AbstractModel model;
     
     @FXML
+    protected Button btnUnselect;
+    
+    @FXML
     protected Button btnSave;
     
     @FXML
@@ -85,22 +88,43 @@ public abstract class AbstractDataController extends AbstractController
     }
     
     @FXML
+    private void handleBtnUnselectAction(ActionEvent event)
+    {
+        Entity selectedItem = this.list.getSelectionModel().getSelectedItem();
+        
+        if(selectedItem == null)
+            showAlertError("No selected items!");
+        
+        else
+            this.setNullSelection();
+    }
+    
+    @FXML
     private void handleBtnDeleteAction(ActionEvent event) throws SQLException
     {
         if(this.selected != null)
         {
             this.model.delete(this.selected.getId());
-            this.list.getSelectionModel().select(null);
             this.list.getItems().remove(this.selected);
-            this.selected = null;
-            this.clearFields();
+            
+            this.setNullSelection();
         }
         
         else
-        {
-            Alert alert = new Alert(AlertType.ERROR, "No data selected!");
-            alert.showAndWait();
-        }
+            showAlertError("No data selected!");
+    }
+    
+    protected void showAlertError(String msg)
+    {
+        Alert alert = new Alert(AlertType.ERROR, msg);
+        alert.showAndWait();
+    }
+    
+    protected void setNullSelection()
+    {
+        this.list.getSelectionModel().select(null);
+        this.selected = null;
+        this.clearFields();
     }
     
     protected abstract void setFields(Entity entity);
