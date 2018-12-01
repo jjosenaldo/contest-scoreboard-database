@@ -5,10 +5,6 @@
  */
 package maratona2.controller;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import maratona2.domain.Coach;
@@ -43,22 +39,6 @@ public class CoachController extends AbstractDataController {
         txtName.setText(((Coach)entity).getName());
     }
     
-    @Override
-    protected boolean updateSelected(Entity e)
-    {
-        String name = txtName.getText();
-        
-        if(((Coach)e).getName().equals(name))
-            return false;
-        
-        else
-        {
-            ((Coach)e).setName(name);
-            ((Coach)this.selected).setName(name);        
-            return true;
-        }
-    }
-
     @Override
     protected Entity getNewEntityFromFields()
     {

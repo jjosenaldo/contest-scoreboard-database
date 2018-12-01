@@ -7,7 +7,6 @@ package maratona2.controller;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -23,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import maratona2.domain.Entity;
 import maratona2.model.AbstractModel;
+import org.postgresql.util.PSQLException;
 
 /**
  *
@@ -116,15 +116,28 @@ public abstract class AbstractDataController extends AbstractController
     }
     
     @FXML
-    private void handleBtnSaveAction(ActionEvent event) throws SQLException {
+    private void handleBtnSaveAction(ActionEvent event) {
         if(this.selected == null)
         {
             Entity newEntity = this.getNewEntityFromFields();
             
             if(newEntity != null)
             {
-                this.model.insert(newEntity);
-                this.list.getItems().add(newEntity);
+                try
+                {
+                    this.model.insert(newEntity);
+                    this.list.getItems().add(newEntity);
+                }
+                
+                catch (PSQLException ex)
+                {
+                    this.showAlertError("Invalid data!");
+                }
+            
+                catch(SQLException ex)
+                {
+                    this.showAlertError("Something nasty happened...");
+                }
             }
                 
             
@@ -134,43 +147,30 @@ public abstract class AbstractDataController extends AbstractController
         
         else
         {
-            if(this.wasSelectedUpdated())
-                this.model.update(this.selected);
-            
-            else
-                this.showAlertError("The object wasn't changed!");
+            try
+            {
+                Entity newEntity = this.getNewEntityFromFields();
+                newEntity.setId(this.selected.getId());
+                this.model.update(newEntity);
+                this.list.getItems().set(this.list.getItems().indexOf(this.selected), newEntity);
+                
+            }
+
+            catch (PSQLException ex)
+            {
+                this.showAlertError("Invalid data!");
+            }
+
+            catch(SQLException ex)
+            {
+                this.showAlertError("Something nasty happened...");
+            }
         }
             
         
         this.setNullSelection();
             
     }
-    
-    protected boolean wasSelectedUpdated()
-    {
-        List<Entity> items = this.list.getItems();
-        
-        for(int i = 0; i < items.size(); ++i)
-        {
-            Entity e = items.get(i);
-            
-            if(e.equals(this.selected))
-            {
-                if(this.updateSelected(e))
-                {
-                    items.set(i, e);
-                    return true;
-                }
-                
-                else
-                    return false;
-            }
-        }
-        
-        return false;
-    }
-    
-    protected abstract boolean updateSelected(Entity e);
     
     protected void showAlertError(String msg)
     {

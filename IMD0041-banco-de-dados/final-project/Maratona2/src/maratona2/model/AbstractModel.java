@@ -12,8 +12,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import maratona2.domain.Entity;
 import maratona2.utils.DBUtils;
+import org.postgresql.util.PSQLException;
 
 /**
  *
@@ -50,29 +53,53 @@ public abstract class AbstractModel
         return this.connection.prepareStatement(command);
     }  
     
-    protected Statement createStatement() throws SQLException
+    protected void insertOrUpdate(boolean isInsert, Entity entity) throws PSQLException, SQLException
     {
-        this.setConnection();
+        PreparedStatement statement = null;
         
-        return this.connection.createStatement();
-    }
-    
-    public void insert(Entity entity) throws SQLException
-    {
-        PreparedStatement statement = this.prepareStatement(this.sql_insert);
-        this.setPreparedStatementInsertParams(statement, entity);
-        statement.executeUpdate();
+        try
+        {
+            if(isInsert)
+            {
+                statement = this.prepareStatement(this.sql_insert);
+                this.setPreparedStatementInsertParams(statement, entity);
+            }
+            
+            else
+            {
+                statement = this.prepareStatement(this.sql_update);
+                this.setPreparedStatementUpdateParams(statement, entity);
+            }
+            
+            statement.executeUpdate();
+        }
         
-        this.connection.close();
-    }
-    
-    public void update(Entity entity) throws SQLException
-    {
-        PreparedStatement statement = this.prepareStatement(this.sql_update);
-        this.setPreparedStatementUpdateParams(statement, entity);
-        statement.executeUpdate();
+        catch (PSQLException ex)
+        {
+            Logger.getLogger(AbstractModel.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
         
-        this.connection.close();
+        catch (SQLException ex)
+        {
+            Logger.getLogger(AbstractModel.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+        
+        finally
+        {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) { /* ignored */}
+            }
+            if (this.connection != null) {
+                try {
+                    this.connection.close();
+                } catch (SQLException e) { /* ignored */}
+            }
+        }
+        
     }
     
     public void delete(int id) throws SQLException
@@ -82,6 +109,24 @@ public abstract class AbstractModel
         statement.executeUpdate();
         
         this.connection.close();
+    }
+    
+    protected Statement createStatement() throws SQLException
+    {
+        this.setConnection();
+        
+        return this.connection.createStatement();
+    }
+    
+    public void insert(Entity entity) throws SQLException, SQLException
+    {
+        this.insertOrUpdate(true, entity);
+    }
+    
+    public void update(Entity entity) throws PSQLException, SQLException
+    {
+        this.insertOrUpdate(false, entity);
+        
     }
     
     public List<Entity> selectAll() throws SQLException
