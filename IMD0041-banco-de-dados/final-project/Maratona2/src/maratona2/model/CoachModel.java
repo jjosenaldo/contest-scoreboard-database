@@ -30,9 +30,8 @@ public class CoachModel extends AbstractModel{
     }
     
     @Override
-    protected void setPreparedStatementUpdateParams(PreparedStatement statement, Entity entity) throws SQLException
+    protected void setIdInPreparedStatementUpdateParams(PreparedStatement statement, Entity entity) throws SQLException
     {
-        statement.setString(1, ((Coach)entity).getName());
         statement.setInt(2, ((Coach)entity).getId());
     }
     

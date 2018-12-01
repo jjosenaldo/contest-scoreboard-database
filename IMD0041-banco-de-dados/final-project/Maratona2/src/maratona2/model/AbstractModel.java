@@ -102,11 +102,17 @@ public abstract class AbstractModel
         return resultList;
     }
     
+    protected void setPreparedStatementUpdateParams(PreparedStatement statement, Entity entity) throws SQLException
+    {
+        this.setPreparedStatementInsertParams(statement, entity);
+        this.setIdInPreparedStatementUpdateParams(statement, entity);
+    }
+    
     protected abstract void setPreparedStatementInsertParams(PreparedStatement statement, Entity entity) throws SQLException;
     
-    protected abstract void setPreparedStatementUpdateParams(PreparedStatement statement, Entity entity) throws SQLException;;
-    
     protected abstract void addEntityToList(ResultSet resultSet, List<Entity> list) throws SQLException;
+    
+    protected abstract void setIdInPreparedStatementUpdateParams(PreparedStatement statement, Entity entity) throws SQLException;
 }
 
 
