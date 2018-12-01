@@ -77,8 +77,6 @@ public abstract class AbstractDataController extends AbstractController
             
             if(newValue != null)
                 AbstractDataController.this.setFieldsFromEntity(newValue);
-            
-            
         });
     }
     
@@ -125,7 +123,8 @@ public abstract class AbstractDataController extends AbstractController
             {
                 try
                 {
-                    this.model.insert(newEntity);
+                    int id = this.model.insert(newEntity);
+                    newEntity.setId(id);
                     this.list.getItems().add(newEntity);
                 }
                 

@@ -46,61 +46,19 @@ public abstract class AbstractModel
             
     }
     
+    protected PreparedStatement prepareStatement(String command, int key) throws SQLException
+    {
+        this.setConnection();
+        
+        return this.connection.prepareStatement(command, key);
+    }
+    
     protected PreparedStatement prepareStatement(String command) throws SQLException
     {
         this.setConnection();
         
         return this.connection.prepareStatement(command);
     }  
-    
-    protected void insertOrUpdate(boolean isInsert, Entity entity) throws PSQLException, SQLException
-    {
-        PreparedStatement statement = null;
-        
-        try
-        {
-            if(isInsert)
-            {
-                statement = this.prepareStatement(this.sql_insert);
-                this.setPreparedStatementInsertParams(statement, entity);
-            }
-            
-            else
-            {
-                statement = this.prepareStatement(this.sql_update);
-                this.setPreparedStatementUpdateParams(statement, entity);
-            }
-            
-            statement.executeUpdate();
-        }
-        
-        catch (PSQLException ex)
-        {
-            Logger.getLogger(AbstractModel.class.getName()).log(Level.SEVERE, null, ex);
-            throw ex;
-        }
-        
-        catch (SQLException ex)
-        {
-            Logger.getLogger(AbstractModel.class.getName()).log(Level.SEVERE, null, ex);
-            throw ex;
-        }
-        
-        finally
-        {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) { /* ignored */}
-            }
-            if (this.connection != null) {
-                try {
-                    this.connection.close();
-                } catch (SQLException e) { /* ignored */}
-            }
-        }
-        
-    }
     
     public void delete(int id) throws SQLException
     {
@@ -132,9 +90,6 @@ public abstract class AbstractModel
                 } catch (SQLException e) { /* ignored */}
             }
         }
-        
-        
-        this.connection.close();
     }
     
     protected Statement createStatement() throws SQLException
@@ -144,14 +99,90 @@ public abstract class AbstractModel
         return this.connection.createStatement();
     }
     
-    public void insert(Entity entity) throws SQLException, SQLException
+    public int insert(Entity entity) throws SQLException, SQLException
     {
-        this.insertOrUpdate(true, entity);
+        PreparedStatement statement = null;
+        
+        try
+        {
+            statement = this.prepareStatement(this.sql_insert, PreparedStatement.RETURN_GENERATED_KEYS);
+            this.setPreparedStatementInsertParams(statement, entity);
+            statement.executeUpdate();
+            
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                }
+                else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
+        }
+        
+        catch (PSQLException ex)
+        {
+            Logger.getLogger(AbstractModel.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+        
+        catch (SQLException ex)
+        {
+            Logger.getLogger(AbstractModel.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+        
+        finally
+        {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) { /* ignored */}
+            }
+            if (this.connection != null) {
+                try {
+                    this.connection.close();
+                } catch (SQLException e) { /* ignored */}
+            }
+        }
     }
     
     public void update(Entity entity) throws PSQLException, SQLException
     {
-        this.insertOrUpdate(false, entity);
+        PreparedStatement statement = null;
+        
+        try
+        {
+            statement = this.prepareStatement(this.sql_update);
+            this.setPreparedStatementUpdateParams(statement, entity);
+            
+            statement.executeUpdate();
+        }
+        
+        catch (PSQLException ex)
+        {
+            Logger.getLogger(AbstractModel.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+        
+        catch (SQLException ex)
+        {
+            Logger.getLogger(AbstractModel.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+        
+        finally
+        {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) { /* ignored */}
+            }
+            if (this.connection != null) {
+                try {
+                    this.connection.close();
+                } catch (SQLException e) { /* ignored */}
+            }
+        }
         
     }
     
