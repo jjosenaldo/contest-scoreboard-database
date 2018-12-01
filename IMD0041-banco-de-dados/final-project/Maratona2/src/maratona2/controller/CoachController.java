@@ -44,14 +44,23 @@ public class CoachController extends AbstractDataController {
     }
     
     @Override
-    protected void updateSelected()
+    protected boolean updateSelected(Entity e)
     {
         String name = txtName.getText();
-        ((Coach)this.selected).setName(name);
+        
+        if(((Coach)e).getName().equals(name))
+            return false;
+        
+        else
+        {
+            ((Coach)e).setName(name);
+            ((Coach)this.selected).setName(name);        
+            return true;
+        }
     }
 
     @Override
-    protected Entity getNewEntity()
+    protected Entity getNewEntityFromFields()
     {
         String name = txtName.getText();
         

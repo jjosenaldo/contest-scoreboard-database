@@ -7,6 +7,8 @@ package maratona2.controller;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -117,10 +119,14 @@ public abstract class AbstractDataController extends AbstractController
     private void handleBtnSaveAction(ActionEvent event) throws SQLException {
         if(this.selected == null)
         {
-            Entity newEntity = this.getNewEntity();
+            Entity newEntity = this.getNewEntityFromFields();
             
             if(newEntity != null)
+            {
                 this.model.insert(newEntity);
+                this.list.getItems().add(newEntity);
+            }
+                
             
             else
                 this.showAlertError("Invalid data!");
@@ -128,14 +134,43 @@ public abstract class AbstractDataController extends AbstractController
         
         else
         {
-            this.updateSelected();
-            this.model.update(this.selected);
+            if(this.wasSelectedUpdated())
+                this.model.update(this.selected);
+            
+            else
+                this.showAlertError("The object wasn't changed!");
         }
             
         
         this.setNullSelection();
             
     }
+    
+    protected boolean wasSelectedUpdated()
+    {
+        List<Entity> items = this.list.getItems();
+        
+        for(int i = 0; i < items.size(); ++i)
+        {
+            Entity e = items.get(i);
+            
+            if(e.equals(this.selected))
+            {
+                if(this.updateSelected(e))
+                {
+                    items.set(i, e);
+                    return true;
+                }
+                
+                else
+                    return false;
+            }
+        }
+        
+        return false;
+    }
+    
+    protected abstract boolean updateSelected(Entity e);
     
     protected void showAlertError(String msg)
     {
@@ -154,7 +189,6 @@ public abstract class AbstractDataController extends AbstractController
     
     protected abstract void clearFields();
     
-    protected abstract Entity getNewEntity();
-    
-    protected abstract void updateSelected();
+    protected abstract Entity getNewEntityFromFields();
+   
 }
