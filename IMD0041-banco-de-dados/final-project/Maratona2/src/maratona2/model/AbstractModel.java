@@ -60,7 +60,16 @@ public abstract class AbstractModel
     public void insert(Entity entity) throws SQLException
     {
         PreparedStatement statement = this.prepareStatement(this.sql_insert);
-        this.setPreparedStatementParams(statement, entity);
+        this.setPreparedStatementInsertParams(statement, entity);
+        statement.executeUpdate();
+        
+        this.connection.close();
+    }
+    
+    public void update(Entity entity) throws SQLException
+    {
+        PreparedStatement statement = this.prepareStatement(this.sql_update);
+        this.setPreparedStatementUpdateParams(statement, entity);
         statement.executeUpdate();
         
         this.connection.close();
@@ -93,7 +102,9 @@ public abstract class AbstractModel
         return resultList;
     }
     
-    protected abstract void setPreparedStatementParams(PreparedStatement statement, Entity entity) throws SQLException;
+    protected abstract void setPreparedStatementInsertParams(PreparedStatement statement, Entity entity) throws SQLException;
+    
+    protected abstract void setPreparedStatementUpdateParams(PreparedStatement statement, Entity entity) throws SQLException;;
     
     protected abstract void addEntityToList(ResultSet resultSet, List<Entity> list) throws SQLException;
 }

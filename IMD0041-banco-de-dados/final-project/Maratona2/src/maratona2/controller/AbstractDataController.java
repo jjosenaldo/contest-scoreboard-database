@@ -128,8 +128,10 @@ public abstract class AbstractDataController extends AbstractController
         
         else
         {
-        //    this.coachModel.update(this.selected);
+            this.updateSelected();
+            this.model.update(this.selected);
         }
+            
         
         this.setNullSelection();
             
@@ -153,4 +155,6 @@ public abstract class AbstractDataController extends AbstractController
     protected abstract void clearFields();
     
     protected abstract Entity getNewEntity();
+    
+    protected abstract void updateSelected();
 }

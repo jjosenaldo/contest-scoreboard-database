@@ -24,9 +24,16 @@ public class CoachModel extends AbstractModel{
     }
     
     @Override
-    protected void setPreparedStatementParams(PreparedStatement statement, Entity entity) throws SQLException
+    protected void setPreparedStatementInsertParams(PreparedStatement statement, Entity entity) throws SQLException
     {
         statement.setString(1, ((Coach)entity).getName());
+    }
+    
+    @Override
+    protected void setPreparedStatementUpdateParams(PreparedStatement statement, Entity entity) throws SQLException
+    {
+        statement.setString(1, ((Coach)entity).getName());
+        statement.setInt(2, ((Coach)entity).getId());
     }
     
     @Override

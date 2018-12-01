@@ -28,7 +28,7 @@ public class CoachController extends AbstractDataController {
     public CoachController()
     {
         super();
-        this.model = new CoachModel("INSERT INTO Coach (name) VALUES (?)","SELECT idcoach, name FROM coach", null, "DELETE FROM Coach WHERE idcoach = ?");
+        this.model = new CoachModel("INSERT INTO Coach (name) VALUES (?)","SELECT idcoach, name FROM coach", "UPDATE Coach SET name = ? WHERE idcoach = ?", "DELETE FROM Coach WHERE idcoach = ?");
     }
         
     @Override
@@ -42,13 +42,20 @@ public class CoachController extends AbstractDataController {
     {
         txtName.setText(((Coach)entity).getName());
     }
+    
+    @Override
+    protected void updateSelected()
+    {
+        String name = txtName.getText();
+        ((Coach)this.selected).setName(name);
+    }
 
     @Override
     protected Entity getNewEntity()
     {
         String name = txtName.getText();
         
-        if(name == null || name.trim().isEmpty())
+        if(name == null)
             return null;
         
         else
