@@ -31,33 +31,6 @@ public class CoachController extends AbstractDataController {
         this.model = new CoachModel("INSERT INTO Coach (name) VALUES (?)","SELECT idcoach, name FROM coach", null, "DELETE FROM Coach WHERE idcoach = ?");
     }
         
-    @FXML
-    private void handleBtnSaveAction(ActionEvent event) {
-        if(this.selected == null)
-        {
-            try
-            {
-                if(!txtName.getText().trim().isEmpty())
-                    this.model.insert(new Coach(txtName.getText()));
-            }
-            
-            catch (SQLException ex)
-            {
-                Logger.getLogger(CoachController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            this.clearFields();
-        }
-        
-        else
-        {
-        //    this.coachModel.update(this.selected);
-            this.selected = null;
-            this.clearFields();
-        }
-            
-    }
-    
     @Override
     protected void clearFields()
     {
@@ -68,5 +41,17 @@ public class CoachController extends AbstractDataController {
     protected void setFields(Entity entity)
     {
         txtName.setText(((Coach)entity).getName());
+    }
+
+    @Override
+    protected Entity getNewEntity()
+    {
+        String name = txtName.getText();
+        
+        if(name == null || name.trim().isEmpty())
+            return null;
+        
+        else
+            return new Coach(name);
     }
 }

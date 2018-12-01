@@ -18,7 +18,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import maratona2.domain.Entity;
 import maratona2.model.AbstractModel;
@@ -114,6 +113,28 @@ public abstract class AbstractDataController extends AbstractController
             showAlertError("No data selected!");
     }
     
+    @FXML
+    private void handleBtnSaveAction(ActionEvent event) throws SQLException {
+        if(this.selected == null)
+        {
+            Entity newEntity = this.getNewEntity();
+            
+            if(newEntity != null)
+                this.model.insert(newEntity);
+            
+            else
+                this.showAlertError("Invalid data!");
+        }
+        
+        else
+        {
+        //    this.coachModel.update(this.selected);
+        }
+        
+        this.setNullSelection();
+            
+    }
+    
     protected void showAlertError(String msg)
     {
         Alert alert = new Alert(AlertType.ERROR, msg);
@@ -130,4 +151,6 @@ public abstract class AbstractDataController extends AbstractController
     protected abstract void setFields(Entity entity);
     
     protected abstract void clearFields();
+    
+    protected abstract Entity getNewEntity();
 }
