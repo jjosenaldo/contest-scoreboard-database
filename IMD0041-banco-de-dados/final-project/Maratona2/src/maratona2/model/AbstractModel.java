@@ -79,16 +79,8 @@ public abstract class AbstractModel
         
         finally
         {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) { /* ignored */}
-            }
-            if (this.connection != null) {
-                try {
-                    this.connection.close();
-                } catch (SQLException e) { /* ignored */}
-            }
+            DBUtils.closeStatement(statement);
+            DBUtils.closeConnection(this.connection);
         }
     }
     
@@ -133,16 +125,8 @@ public abstract class AbstractModel
         
         finally
         {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) { /* ignored */}
-            }
-            if (this.connection != null) {
-                try {
-                    this.connection.close();
-                } catch (SQLException e) { /* ignored */}
-            }
+            DBUtils.closeStatement(statement);
+            DBUtils.closeConnection(this.connection);
         }
     }
     
@@ -172,16 +156,8 @@ public abstract class AbstractModel
         
         finally
         {
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException e) { /* ignored */}
-            }
-            if (this.connection != null) {
-                try {
-                    this.connection.close();
-                } catch (SQLException e) { /* ignored */}
-            }
+            DBUtils.closeStatement(statement);
+            DBUtils.closeConnection(this.connection);
         }
         
     }

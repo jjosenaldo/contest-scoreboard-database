@@ -8,19 +8,34 @@ package maratona2.utils;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
  * @author josenaldo
  */
 public class DBUtils
-{
-    public static final String URL = "jdbc:postgresql://localhost/db_final_project";
-    public static final String USER = "pg_josenaldo";
-    public static final String PASSWORD = "1234";
-    
+{   
     public static Connection getConnection() throws SQLException
     {
-        return DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
+        return DriverManager.getConnection(DBConstants.URL, DBConstants.USER, DBConstants.PASSWORD);
+    }
+    
+    public static void closeStatement(Statement statement)
+    {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) { /* ignored */}
+        }
+    }
+    
+    public static void closeConnection(Connection connection)
+    {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) { /* ignored */}
+        }
     }
 }

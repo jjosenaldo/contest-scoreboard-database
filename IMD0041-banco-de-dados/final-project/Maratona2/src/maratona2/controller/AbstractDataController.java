@@ -7,7 +7,6 @@ package maratona2.controller;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -99,14 +98,26 @@ public abstract class AbstractDataController extends AbstractController
     }
     
     @FXML
-    private void handleBtnDeleteAction(ActionEvent event) throws SQLException
+    private void handleBtnDeleteAction(ActionEvent event)
     {
         if(this.selected != null)
         {
-            this.model.delete(this.selected.getId());
-            this.list.getItems().remove(this.selected);
+            try
+            {
+                this.model.delete(this.selected.getId());
+                this.list.getItems().remove(this.selected);
+            }
+            catch (SQLException ex)
+            {
+                Logger.getLogger(AbstractDataController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
-            this.setNullSelection();
+            finally
+            {
+                this.setNullSelection();
+            }
+            
+            
         }
         
         else
