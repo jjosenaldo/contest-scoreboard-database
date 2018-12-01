@@ -73,11 +73,11 @@ public abstract class AbstractDataController extends AbstractController
         
         list.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Entity> observable, Entity oldValue, Entity newValue) ->
         {
+            AbstractDataController.this.selected = newValue;
+            
             if(newValue != null)
-            {
-                AbstractDataController.this.selected = newValue;
-                AbstractDataController.this.setFields(newValue);
-            }
+                AbstractDataController.this.setFieldsFromEntity(newValue);
+            
             
         });
     }
@@ -185,7 +185,7 @@ public abstract class AbstractDataController extends AbstractController
         this.clearFields();
     }
     
-    protected abstract void setFields(Entity entity);
+    protected abstract void setFieldsFromEntity(Entity entity);
     
     protected abstract void clearFields();
     

@@ -34,7 +34,7 @@ public class CoachController extends AbstractDataController {
     }
 
     @Override
-    protected void setFields(Entity entity)
+    protected void setFieldsFromEntity(Entity entity)
     {
         txtName.setText(((Coach)entity).getName());
     }

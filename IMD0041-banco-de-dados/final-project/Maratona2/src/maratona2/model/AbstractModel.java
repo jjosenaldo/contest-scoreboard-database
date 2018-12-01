@@ -104,9 +104,35 @@ public abstract class AbstractModel
     
     public void delete(int id) throws SQLException
     {
-        PreparedStatement statement = this.prepareStatement(this.sql_delete);
-        statement.setInt(1, id);
-        statement.executeUpdate();
+        PreparedStatement statement = null;
+        
+        try
+        {
+            statement = this.prepareStatement(this.sql_delete);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+        }
+        
+        catch(SQLException ex)
+        {
+            Logger.getLogger(AbstractModel.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
+        }
+        
+        finally
+        {
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException e) { /* ignored */}
+            }
+            if (this.connection != null) {
+                try {
+                    this.connection.close();
+                } catch (SQLException e) { /* ignored */}
+            }
+        }
+        
         
         this.connection.close();
     }
