@@ -7,15 +7,18 @@ package maratona2.controller;
 
 import java.net.URL;
 import java.sql.SQLException;
-import static java.util.Collections.list;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import maratona2.domain.Entity;
 import maratona2.model.AbstractModel;
@@ -46,6 +49,12 @@ public abstract class AbstractDataController extends AbstractController
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        initializeList();
+        
+    }   
+    
+    private void initializeList()
+    {
         ObservableList<Entity> items = FXCollections.observableArrayList();
         try
         {
@@ -57,7 +66,17 @@ public abstract class AbstractDataController extends AbstractController
         }
 
         list.setItems(items);
-    }   
+        
+        list.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Entity> observable, Entity oldValue, Entity newValue) ->
+        {
+            if(newValue != null)
+            {
+                AbstractDataController.this.selected = newValue;
+                AbstractDataController.this.setFields(newValue);
+            }
+            
+        });
+    }
     
     @FXML
     private void handleBtnBackAction(ActionEvent event)
@@ -71,9 +90,20 @@ public abstract class AbstractDataController extends AbstractController
         if(this.selected != null)
         {
             this.model.delete(this.selected.getId());
+            this.list.getSelectionModel().select(null);
+            this.list.getItems().remove(this.selected);
             this.selected = null;
+            this.clearFields();
+        }
+        
+        else
+        {
+            Alert alert = new Alert(AlertType.ERROR, "No data selected!");
+            alert.showAndWait();
         }
     }
+    
+    protected abstract void setFields(Entity entity);
     
     protected abstract void clearFields();
 }

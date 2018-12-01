@@ -40,6 +40,7 @@ public abstract class AbstractModel
     {
         if(this.connection == null || this.connection.isClosed())
             this.connection = DBUtils.getConnection();
+            
     }
     
     protected PreparedStatement prepareStatement(String command) throws SQLException
@@ -86,6 +87,8 @@ public abstract class AbstractModel
                 this.addEntityToList(resultSet, resultList);
             }
         }
+        
+        this.connection.close();
         
         return resultList;
     }

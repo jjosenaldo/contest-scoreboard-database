@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import maratona2.domain.Coach;
+import maratona2.domain.Entity;
 import maratona2.model.AbstractModel;
 import maratona2.model.CoachModel;
 
@@ -28,7 +29,7 @@ public class CoachController extends AbstractDataController {
     public CoachController()
     {
         super();
-        this.model = new CoachModel("INSERT INTO Coach (name) VALUES (?)","SELECT idcoach, name FROM coach", "DELETE FROM Coach WHERE idcoach = ?", null);
+        this.model = new CoachModel("INSERT INTO Coach (name) VALUES (?)","SELECT idcoach, name FROM coach", null, "DELETE FROM Coach WHERE idcoach = ?");
     }
         
     @FXML
@@ -62,5 +63,11 @@ public class CoachController extends AbstractDataController {
     protected void clearFields()
     {
         txtName.setText("");
+    }
+
+    @Override
+    protected void setFields(Entity entity)
+    {
+        txtName.setText(((Coach)entity).getName());
     }
 }
