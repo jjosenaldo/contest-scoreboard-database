@@ -4,11 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="maratona2.controller.MainController">
+<AnchorPane id="AnchorPane" prefHeight="280.0" prefWidth="320" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="maratona2.controller.MainController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Button fx:id="btnCoach" layoutX="129.0" layoutY="24.0" mnemonicParsing="false" onAction="#handleBtnCoachAction" text="Coach" />
       <Button fx:id="btnTeam" layoutX="130.0" layoutY="74.0" mnemonicParsing="false" onAction="#handleBtnTeamAction" text="Team" />
       <Button fx:id="idContestant" layoutX="130.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleBtnContestantAction" text="Contestant" />
+      <Button fx:id="btnProblem" layoutX="129.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleBtnProblemAction" text="Problem" />
     </children>
 </AnchorPane>

@@ -20,6 +20,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import maratona2.domain.Entity;
+import maratona2.exception.InvalidFieldValueException;
 import maratona2.model.AbstractModel;
 import org.postgresql.util.PSQLException;
 
@@ -130,29 +131,37 @@ public abstract class AbstractDataController extends AbstractController
         {
             Entity newEntity = this.getNewEntityFromFields();
             
-            if(newEntity != null)
+            try
             {
-                try
+                if(newEntity != null)
                 {
-                    int id = this.model.insert(newEntity);
-                    newEntity.setId(id);
-                    this.list.getItems().add(newEntity);
+                    try
+                    {
+                        int id = this.model.insert(newEntity);
+                        newEntity.setId(id);
+                        this.list.getItems().add(newEntity);
+                    }
+
+                    catch (PSQLException ex)
+                    {
+                        this.showAlertError("Invalid data!");
+                    }
+
+                    catch(SQLException ex)
+                    {
+                        this.showAlertError("Something nasty happened...");
+                    }
                 }
-                
-                catch (PSQLException ex)
-                {
+
+
+                else
                     this.showAlertError("Invalid data!");
-                }
-            
-                catch(SQLException ex)
-                {
-                    this.showAlertError("Something nasty happened...");
-                }
             }
-                
             
-            else
-                this.showAlertError("Invalid data!");
+            catch(InvalidFieldValueException ex)
+            {
+                showAlertError(ex.getMessage());
+            }
         }
         
         else
@@ -164,6 +173,11 @@ public abstract class AbstractDataController extends AbstractController
                 this.model.update(newEntity);
                 this.list.getItems().set(this.list.getItems().indexOf(this.selected), newEntity);
                 
+            }
+            
+            catch (InvalidFieldValueException ex)
+            {
+                this.showAlertError(ex.getMessage());
             }
 
             catch (PSQLException ex)

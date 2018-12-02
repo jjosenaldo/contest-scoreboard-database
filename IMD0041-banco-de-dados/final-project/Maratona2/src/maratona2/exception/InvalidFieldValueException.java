@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package exception;
+package maratona2.exception;
 
 /**
  *
@@ -11,7 +11,16 @@ package exception;
  */
 public class InvalidFieldValueException extends RuntimeException
 {
-    public InvalidFieldValueException(String errorMessage, Throwable err) {
-        super(errorMessage, err);
+    private final String message;
+    
+    public InvalidFieldValueException(String s) {
+          super(s);
+          this.message = s;
+    }
+    
+    @Override
+    public String getMessage()
+    {
+        return this.message;
     }
 }

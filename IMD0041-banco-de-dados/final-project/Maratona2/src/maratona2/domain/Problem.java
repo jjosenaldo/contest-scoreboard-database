@@ -9,30 +9,37 @@ package maratona2.domain;
  *
  * @author josenaldo
  */
-public class Problem {
+public class Problem extends Entity{
     private int idproblem;
+    private String name;
     private String description;
     private String input;
     private String output;
     private int timelimit;
+    
+    public Problem(int id)
+    {
+        super(id);
+    }
 
-    public Problem(String description, String input, String output, int timelimit) {
-        this(-1, description, input, output, timelimit);
+    public Problem(String name, String description, String input, String output, int timelimit) {
+        this(-1, name, description, input, output, timelimit);
     }
     
-    public Problem(int idproblem, String description, String input, String output, int timelimit) {
-        this.idproblem = idproblem;
+    public Problem(int idproblem, String name, String description, String input, String output, int timelimit) {
+        super(idproblem);
+        this.name = name;
         this.description = description;
         this.input = input;
         this.output = output;
         this.timelimit = timelimit;
     }
 
-    public int getIdproblem() {
+    public int getIdProblem() {
         return idproblem;
     }
 
-    public void setIdproblem(int idproblem) {
+    public void setIdProblem(int idproblem) {
         this.idproblem = idproblem;
     }
 
@@ -68,5 +75,19 @@ public class Problem {
         this.timelimit = timelimit;
     }
     
+    public String getName()
+    {
+        return this.name;
+    }
     
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return this.name;
+    }
 }

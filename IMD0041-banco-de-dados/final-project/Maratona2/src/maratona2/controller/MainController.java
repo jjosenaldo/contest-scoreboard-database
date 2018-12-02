@@ -38,4 +38,10 @@ public class MainController extends AbstractController implements Initializable 
     {
         replaceSceneContent("/maratona2/view/Contestant.fxml");
     }
+    
+    @FXML
+    private void handleBtnProblemAction(ActionEvent event)
+    {
+        replaceSceneContent("/maratona2/view/Problem.fxml");
+    }
 }
