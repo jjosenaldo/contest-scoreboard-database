@@ -17,10 +17,12 @@ import maratona2.domain.Entity;
  * @author josenaldo
  */
 public class CoachModel extends AbstractModel{
-    
-    public CoachModel(String sql_insert, String sql_find_all, String sql_update, String sql_delete)
+    public CoachModel()
     {
-        super(sql_insert, sql_find_all, sql_update, sql_delete);
+        super("INSERT INTO Coach (name) VALUES (?)",
+                "SELECT idcoach, name FROM coach",
+                "UPDATE Coach SET name = ? WHERE idcoach = ?",
+                "DELETE FROM Coach WHERE idcoach = ?");
     }
     
     @Override
@@ -40,10 +42,5 @@ public class CoachModel extends AbstractModel{
     {
         Coach coach = new Coach(resultSet.getInt("idcoach"), resultSet.getString("name"));
         list.add(coach);
-    }
-    
-    public void update(Coach coach)
-    {
-        System.out.println("Coach updated!");
     }
 }

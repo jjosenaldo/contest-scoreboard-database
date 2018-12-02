@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="624.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="maratona2.controller.TeamController">
+   <children>
+      <Button fx:id="btnBack" layoutX="38.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleBtnBackAction" text="&lt;---" />
+      <Label layoutX="38.0" layoutY="89.0" text="Coach" />
+      <Label layoutX="43.0" layoutY="222.0" text="Name" />
+      <Label layoutX="43.0" layoutY="299.0" text="College" />
+      <Label layoutX="46.0" layoutY="387.0" text="About" />
+      <Button fx:id="btnSave" layoutX="41.0" layoutY="572.0" mnemonicParsing="false" onAction="#handleBtnSaveAction" text="Save" />
+      <Button fx:id="btnDelete" layoutX="169.0" layoutY="573.0" mnemonicParsing="false" onAction="#handleBtnDeleteAction" text="Delete" />
+      <Button fx:id="btnUnselect" layoutX="385.0" layoutY="88.0" mnemonicParsing="false" onAction="#handleBtnUnselectAction" text="Unselect" />
+      <TextField fx:id="txtName" layoutX="38.0" layoutY="251.0" />
+      <TextField fx:id="txtCollege" layoutX="41.0" layoutY="329.0" />
+      <TextArea fx:id="txtAbout" layoutX="41.0" layoutY="418.0" prefHeight="140.0" prefWidth="200.0" />
+      <ListView fx:id="list" layoutX="328.0" layoutY="130.0" prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="listCoach" layoutX="36.0" layoutY="114.0" prefHeight="95.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>

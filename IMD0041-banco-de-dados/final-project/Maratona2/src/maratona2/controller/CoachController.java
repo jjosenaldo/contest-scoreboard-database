@@ -24,7 +24,7 @@ public class CoachController extends AbstractDataController {
     public CoachController()
     {
         super();
-        this.model = new CoachModel("INSERT INTO Coach (name) VALUES (?)","SELECT idcoach, name FROM coach", "UPDATE Coach SET name = ? WHERE idcoach = ?", "DELETE FROM Coach WHERE idcoach = ?");
+        this.model = new CoachModel();
     }
         
     @Override

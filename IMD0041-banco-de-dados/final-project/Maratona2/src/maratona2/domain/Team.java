@@ -9,36 +9,29 @@ package maratona2.domain;
  *
  * @author josenaldo
  */
-public class Team {
-    private int idteam;
+public class Team extends Entity{
     private int idcoach;
     private String name;
     private String college;
+    private String about;
 
-    public Team(int idcoach, String name, String college) {
-        this(-1, idcoach, name, college);
+    public Team(int idcoach, String name, String college, String about) {
+        this(-1, idcoach, name, college, about);
     }
     
-    public Team(int idteam, int idcoach, String name, String college) {
-        this.idteam = idteam;
+    public Team(int idteam, int idcoach, String name, String college, String about) {
+        super(idteam);
         this.idcoach = idcoach;
         this.name = name;
         this.college = college;
-    }
-    
-    public int getIdteam() {
-        return idteam;
+        this.about = about;
     }
 
-    public void setIdteam(int idteam) {
-        this.idteam = idteam;
-    }
-
-    public int getIdcoach() {
+    public int getIdCoach() {
         return idcoach;
     }
 
-    public void setIdcoach(int idcoach) {
+    public void setIdCoach(int idcoach) {
         this.idcoach = idcoach;
     }
 
@@ -57,6 +50,20 @@ public class Team {
     public void setCollege(String college) {
         this.college = college;
     }
+
+    public String getAbout()
+    {
+        return about;
+    }
+
+    public void setAbout(String about)
+    {
+        this.about = about;
+    }
     
-    
+    @Override
+    public String toString()
+    {
+        return this.name;
+    }
 }

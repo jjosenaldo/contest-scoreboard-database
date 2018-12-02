@@ -26,4 +26,10 @@ public class MainController extends AbstractController implements Initializable 
     {
         replaceSceneContent("/maratona2/view/Coach.fxml");
     }
+    
+    @FXML
+    private void handleBtnTeamAction(ActionEvent event)
+    {
+        replaceSceneContent("/maratona2/view/Team.fxml");
+    }
 }

@@ -1,0 +1,8 @@
+CREATE TABLE Team(
+	idteam SERIAL NOT NULL,
+	idcoach INTEGER NOT NULL REFERENCES Coach,
+	name VARCHAR(20) NOT NULL,
+	college VARCHAR(20) NOT NULL,
+	about VARCHAR(100),
+	PRIMARY KEY (idteam)
+);

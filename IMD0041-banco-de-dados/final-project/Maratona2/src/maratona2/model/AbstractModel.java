@@ -24,19 +24,19 @@ import org.postgresql.util.PSQLException;
  */
 public abstract class AbstractModel
 {
-    protected String sql_insert;
-    protected String sql_find_all;
-    protected String sql_update;
-    protected String sql_delete;
+    protected String sqlInsert;
+    protected String sqlFindAll;
+    protected String sqlUpdate;
+    protected String sqlDelete;
     
     protected Connection connection;
     
     public AbstractModel(String sql_insert, String sql_find_all, String sql_update, String sql_delete)
     {
-        this.sql_insert = sql_insert;
-        this.sql_find_all = sql_find_all;
-        this.sql_update = sql_update;
-        this.sql_delete = sql_delete;
+        this.sqlInsert = sql_insert;
+        this.sqlFindAll = sql_find_all;
+        this.sqlUpdate = sql_update;
+        this.sqlDelete = sql_delete;
     }
     
     protected void setConnection() throws SQLException
@@ -66,7 +66,7 @@ public abstract class AbstractModel
         
         try
         {
-            statement = this.prepareStatement(this.sql_delete);
+            statement = this.prepareStatement(this.sqlDelete);
             statement.setInt(1, id);
             statement.executeUpdate();
         }
@@ -97,7 +97,7 @@ public abstract class AbstractModel
         
         try
         {
-            statement = this.prepareStatement(this.sql_insert, PreparedStatement.RETURN_GENERATED_KEYS);
+            statement = this.prepareStatement(this.sqlInsert, PreparedStatement.RETURN_GENERATED_KEYS);
             this.setPreparedStatementInsertParams(statement, entity);
             statement.executeUpdate();
             
@@ -136,7 +136,7 @@ public abstract class AbstractModel
         
         try
         {
-            statement = this.prepareStatement(this.sql_update);
+            statement = this.prepareStatement(this.sqlUpdate);
             this.setPreparedStatementUpdateParams(statement, entity);
             
             statement.executeUpdate();
@@ -167,7 +167,7 @@ public abstract class AbstractModel
         List<Entity> resultList = new ArrayList<>();
         
         Statement statement = this.createStatement();
-        try (ResultSet resultSet = statement.executeQuery(this.sql_find_all))
+        try (ResultSet resultSet = statement.executeQuery(this.sqlFindAll))
         {
             while(resultSet.next())
             {

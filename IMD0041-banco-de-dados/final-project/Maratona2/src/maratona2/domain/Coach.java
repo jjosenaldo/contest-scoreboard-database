@@ -11,6 +11,11 @@ package maratona2.domain;
  */
 public class Coach extends Entity{
     private String name;
+    
+    public Coach(int id)
+    {
+        super(id);
+    }
 
     public Coach(String name) {
         this(-1, name);
