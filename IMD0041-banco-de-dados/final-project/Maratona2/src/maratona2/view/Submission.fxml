@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="643.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="maratona2.controller.SubmissionController">
+   <children>
+      <Button fx:id="btnBack" layoutX="32.0" layoutY="33.0" mnemonicParsing="false" onAction="#handleBtnBackAction" text="&lt;---" />
+      <Button fx:id="btnSave" layoutX="221.0" layoutY="570.0" mnemonicParsing="false" onAction="#handleBtnSaveAction" text="Save" />
+      <Button fx:id="btnDelete" layoutX="310.0" layoutY="571.0" mnemonicParsing="false" onAction="#handleBtnDeleteAction" text="Delete" />
+      <Button fx:id="btnUnselect" layoutX="444.0" layoutY="21.0" mnemonicParsing="false" onAction="#handleBtnUnselectAction" text="Unselect" />
+      <ListView fx:id="list" layoutX="386.0" layoutY="62.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="33.0" layoutY="85.0" text="Report" />
+      <ListView fx:id="listReport" layoutX="30.0" layoutY="113.0" prefHeight="120.0" prefWidth="200.0" />
+      <Label layoutX="36.0" layoutY="252.0" text="Time" />
+      <TextField fx:id="txtTime" layoutX="36.0" layoutY="280.0" />
+      <Label layoutX="37.0" layoutY="329.0" text="Duration" />
+      <TextField fx:id="txtDuration" layoutX="36.0" layoutY="350.0" />
+      <Label layoutX="42.0" layoutY="391.0" text="Result" />
+      <ListView fx:id="listResult" layoutX="37.0" layoutY="417.0" prefHeight="102.0" prefWidth="200.0" />
+      <Label layoutX="338.0" layoutY="391.0" text="Solution" />
+      <TextArea fx:id="txtSolution" layoutX="340.0" layoutY="417.0" prefHeight="120.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>

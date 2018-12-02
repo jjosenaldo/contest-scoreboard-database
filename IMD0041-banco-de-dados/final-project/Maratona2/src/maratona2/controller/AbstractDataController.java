@@ -60,6 +60,7 @@ public abstract class AbstractDataController extends AbstractController
     private void initializeList()
     {
         ObservableList<Entity> items = FXCollections.observableArrayList();
+        
         try
         {
             items.addAll(model.selectAll());

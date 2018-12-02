@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="592.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="maratona2.controller.ReportController">
+   <children>
+      <Button fx:id="btnBack" layoutX="28.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleBtnBackAction" text="&lt;---" />
+      <Button fx:id="btnUnselect" layoutX="447.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleBtnUnselectAction" text="Unselect" />
+      <Button fx:id="btnSave" layoutX="42.0" layoutY="529.0" mnemonicParsing="false" onAction="#handleBtnSaveAction" text="Save" />
+      <Button fx:id="btnDelete" layoutX="124.0" layoutY="529.0" mnemonicParsing="false" onAction="#handleBtnDeleteAction" text="Delete" />
+      <ListView fx:id="list" layoutX="381.0" layoutY="79.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="29.0" layoutY="74.0" text="Problem" />
+      <Label layoutX="26.0" layoutY="228.0" text="Team" />
+      <Label layoutX="31.0" layoutY="379.0" text="Solved" />
+      <Label layoutX="27.0" layoutY="451.0" text="Penalty" />
+      <ListView fx:id="listProblem" layoutX="29.0" layoutY="100.0" prefHeight="107.0" prefWidth="200.0" />
+      <ListView fx:id="listTeam" layoutX="27.0" layoutY="252.0" prefHeight="107.0" prefWidth="200.0" />
+      <CheckBox fx:id="chkSolved" layoutX="31.0" layoutY="404.0" mnemonicParsing="false" />
+      <TextField fx:id="txtPenalty" layoutX="26.0" layoutY="476.0" />
+   </children>
+</AnchorPane>

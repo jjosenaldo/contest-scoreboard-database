@@ -9,20 +9,25 @@ package maratona2.domain;
  *
  * @author josenaldo
  */
-public class Submission {
+public class Submission extends Entity{
     private int idsubmission;
     private int idreport;
     private int time;
     private int duration;
     private String result;
     private String solution;
+    
+    public Submission(int id)
+    {
+        super(id);
+    }
 
     public Submission(int idreport, int time, int duration, String result, String solution) {
         this(-1, idreport, time, duration, result, solution);
     }
     
     public Submission(int idsubmission, int idreport, int time, int duration, String result, String solution) {
-        this.idsubmission = idsubmission;
+        this(idsubmission);
         this.idreport = idreport;
         this.time = time;
         this.duration = duration;
@@ -30,19 +35,19 @@ public class Submission {
         this.solution = solution;
     }
 
-    public int getIdsubmission() {
+    public int getIdSubmission() {
         return idsubmission;
     }
 
-    public void setIdsubmission(int idsubmission) {
+    public void setIdSubmission(int idsubmission) {
         this.idsubmission = idsubmission;
     }
 
-    public int getIdreport() {
+    public int getIdReport() {
         return idreport;
     }
 
-    public void setIdreport(int idreport) {
+    public void setIdReport(int idreport) {
         this.idreport = idreport;
     }
 
@@ -78,5 +83,13 @@ public class Submission {
         this.solution = solution;
     }
     
-    
+    @Override
+    public String toString()
+    {
+        return new StringBuilder()
+                .append(idreport)
+                .append(": ")
+                .append(result)
+                .toString();
+    }
 }
