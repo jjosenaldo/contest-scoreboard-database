@@ -16,12 +16,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import maratona2.domain.Coach;
+import maratona2.domain.Contestant;
 import maratona2.domain.Entity;
 import maratona2.domain.Team;
-import maratona2.model.CoachModel;
+import maratona2.model.ContestantModel;
 import maratona2.model.TeamModel;
 
 /**
@@ -29,72 +28,66 @@ import maratona2.model.TeamModel;
  *
  * @author josenaldo
  */
-public class TeamController extends AbstractDataController implements Initializable
+public class ContestantController extends AbstractDataController implements Initializable
 {
     @FXML
     private TextField txtName;
     
     @FXML
-    private TextField txtCollege;
+    private TextField txtNickname;
     
     @FXML
-    private TextArea txtAbout;
+    private ListView<Team> listTeam;
     
-    @FXML
-    private ListView<Coach> listCoach;
-    
-    public TeamController()
+    public ContestantController()
     {
         super();
-        this.model = new TeamModel();
+        this.model = new ContestantModel();
     }
     
     @Override
     protected void clearFields()
     {
         txtName.setText("");
-        txtCollege.setText("");
-        txtAbout.setText("");
-        this.listCoach.getSelectionModel().select(null);
+        txtNickname.setText("");
+        this.listTeam.getSelectionModel().select(null);
     }
 
     @Override
     protected void setFieldsFromEntity(Entity entity)
     {
-        Team team = (Team)entity;
-        this.txtName.setText(team.getName());
-        this.txtCollege.setText(team.getCollege());
-        this.txtAbout.setText(team.getAbout());
-        this.listCoach.getSelectionModel().select(new Coach(team.getIdCoach()));
+        Contestant contestant = (Contestant)entity;
+        this.txtName.setText(contestant.getName());
+        this.txtNickname.setText(contestant.getNickname());
+        this.listTeam.getSelectionModel().select(new Team(contestant.getIdTeam()));
     }
     
     @Override
     protected Entity getNewEntityFromFields()
     {
         String name = txtName.getText();
-        String college = txtCollege.getText();
-        String about = txtAbout.getText();
+        String nickname = txtNickname.getText();
         
-        if(name == null || college == null)
+        if(name == null)
             return null;
         
-        Coach coach = listCoach.getSelectionModel().getSelectedItem();
+        Team team = listTeam.getSelectionModel().getSelectedItem();
         
-        if(coach == null)
+        if(team == null)
             return null;
         
         else
-            return new Team(coach.getId(), name, college, about);
+            return new Contestant(team.getId(), name, nickname);
     }
     
-    private void initListCoach()
+    private void initListTeam()
     {
-        ObservableList<Coach> items = FXCollections.observableArrayList();
+        ObservableList<Team> items = FXCollections.observableArrayList();
         try
         {
-            items.addAll(new CoachModel().selectAll()
+            items.addAll(new TeamModel().selectAll()
                 .stream()
-                .map(e -> (Coach) e)
+                .map(e -> (Team) e)
                 .collect(Collectors.toList()));
         }
         catch (SQLException ex)
@@ -102,12 +95,13 @@ public class TeamController extends AbstractDataController implements Initializa
             Logger.getLogger(AbstractDataController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        listCoach.setItems(items);
+        listTeam.setItems(items);
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         super.initialize(url,rb);
-        initListCoach();
-    } 
+        initListTeam();
+    }
+    
 }

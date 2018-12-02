@@ -9,5 +9,6 @@
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Button fx:id="btnCoach" layoutX="129.0" layoutY="24.0" mnemonicParsing="false" onAction="#handleBtnCoachAction" text="Coach" />
       <Button fx:id="btnTeam" layoutX="130.0" layoutY="74.0" mnemonicParsing="false" onAction="#handleBtnTeamAction" text="Team" />
+      <Button fx:id="idContestant" layoutX="130.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleBtnContestantAction" text="Contestant" />
     </children>
 </AnchorPane>

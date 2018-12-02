@@ -9,7 +9,7 @@ package maratona2.domain;
  *
  * @author josenaldo
  */
-public class Contestant {
+public class Contestant extends Entity{
     private int idcontestant;
     private int idteam;
     private String name;
@@ -21,7 +21,7 @@ public class Contestant {
     }
 
     public Contestant(int idcontestant, int idteam, String name, String nickname) {
-        this.idcontestant = idcontestant;
+        super(idcontestant);
         this.idteam = idteam;
         this.name = name;
         this.nickname = nickname;
@@ -35,11 +35,11 @@ public class Contestant {
         this.idcontestant = idcontestant;
     }
 
-    public int getIdteam() {
+    public int getIdTeam() {
         return idteam;
     }
 
-    public void setIdteam(int idteam) {
+    public void setIdTeam(int idteam) {
         this.idteam = idteam;
     }
 
@@ -59,5 +59,9 @@ public class Contestant {
         this.nickname = nickname;
     }
     
-    
+    @Override
+    public String toString()
+    {
+        return nickname != null ? nickname : name;
+    }
 }

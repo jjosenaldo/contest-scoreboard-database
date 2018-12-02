@@ -15,6 +15,11 @@ public class Team extends Entity{
     private String college;
     private String about;
 
+    public Team(int id)
+    {
+        super(id);
+    }
+    
     public Team(int idcoach, String name, String college, String about) {
         this(-1, idcoach, name, college, about);
     }
