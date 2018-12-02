@@ -9,38 +9,43 @@ package maratona2.domain;
  *
  * @author josenaldo
  */
-public class Instance {
+public class Instance extends Entity{
     private int idinstance;
     private int idproblem;
     private String input;
     private String output;
     private boolean blind;
     
+    public Instance(int id)
+    {
+        super(id);
+    }
+    
     public Instance(int idproblem, String input, String output, boolean blind) {
         this(-1, idproblem, input, output, blind);
     }
 
     public Instance(int idinstance, int idproblem, String input, String output, boolean blind) {
-        this.idinstance = idinstance;
+        this(idinstance);
         this.idproblem = idproblem;
         this.input = input;
         this.output = output;
         this.blind = blind;
     }
 
-    public int getIdinstance() {
+    public int getIdInstance() {
         return idinstance;
     }
 
-    public void setIdinstance(int idinstance) {
+    public void setIdInstance(int idinstance) {
         this.idinstance = idinstance;
     }
 
-    public int getIdproblem() {
+    public int getIdProblem() {
         return idproblem;
     }
 
-    public void setIdproblem(int idproblem) {
+    public void setIdProblem(int idproblem) {
         this.idproblem = idproblem;
     }
 
@@ -68,5 +73,15 @@ public class Instance {
         this.blind = blind;
     }
     
-    
+    @Override
+    public String toString()
+    {
+        return new StringBuilder()
+                .append("<")
+                .append(input)
+                .append(", ")
+                .append(output)
+                .append(">")
+                .toString();
+    }
 }

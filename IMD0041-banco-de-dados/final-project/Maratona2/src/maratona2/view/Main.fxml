@@ -11,5 +11,6 @@
       <Button fx:id="btnTeam" layoutX="130.0" layoutY="74.0" mnemonicParsing="false" onAction="#handleBtnTeamAction" text="Team" />
       <Button fx:id="idContestant" layoutX="130.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleBtnContestantAction" text="Contestant" />
       <Button fx:id="btnProblem" layoutX="129.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleBtnProblemAction" text="Problem" />
+      <Button fx:id="btnInstance" layoutX="127.0" layoutY="191.0" mnemonicParsing="false" onAction="#handleBtnInstanceAction" text="Instance" />
     </children>
 </AnchorPane>
