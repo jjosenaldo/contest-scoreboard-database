@@ -131,6 +131,7 @@ public class SubmissionController extends AbstractDataController implements Init
         items.add("ACC");
         items.add("WA");
         items.add("TLE");
+        items.add("RTE");
         items.add("CE");
         listResult.setItems(items);
     }

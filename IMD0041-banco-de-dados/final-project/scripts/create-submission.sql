@@ -6,6 +6,7 @@ CREATE TABLE Submission(
 	result VARCHAR(3) NOT NULL CHECK(result = 'ACC' 
 								OR result = 'WA'
 								OR result = 'TLE'
+								OR result = 'RTE'
 								OR result = 'CE'),
 	solution VARCHAR(10000),
 	PRIMARY KEY(idsubmission)
