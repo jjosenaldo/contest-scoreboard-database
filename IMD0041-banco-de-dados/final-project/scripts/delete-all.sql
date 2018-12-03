@@ -1,0 +1,7 @@
+DELETE FROM Instance;
+DELETE FROM Submission;
+DELETE FROM Report;
+DELETE FROM Problem;
+DELETE FROM Contestant;
+DELETE FROM Team;
+DELETE FROM Coach;

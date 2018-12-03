@@ -129,7 +129,6 @@ public class SubmissionController extends AbstractDataController implements Init
     {
         ObservableList<String> items = FXCollections.observableArrayList();
         items.add("ACC");
-        items.add("RTE");
         items.add("WA");
         items.add("TLE");
         items.add("CE");

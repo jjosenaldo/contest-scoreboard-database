@@ -81,8 +81,7 @@ public class Report extends Entity{
                 .append(idproblem)
                 .append(", ")
                 .append(idteam)
-                .append("> ")
-                .append(solved ? "=)" : "=(")
+                .append(">")
                 .toString();
     }
 }

@@ -130,10 +130,10 @@ public abstract class AbstractDataController extends AbstractController
     private void handleBtnSaveAction(ActionEvent event) {
         if(this.selected == null)
         {
-            Entity newEntity = this.getNewEntityFromFields();
-            
             try
             {
+                Entity newEntity = this.getNewEntityFromFields();
+                
                 if(newEntity != null)
                 {
                     try
