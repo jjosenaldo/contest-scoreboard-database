@@ -1,8 +1,3 @@
-# Small college projects 
+# Contest Scoreboard Database
 
-Here you find some college projects that I think they aren't complex enough to deserve separate repos just for them.
-
-Comprehensive list of the projects in this repo:
-
-*  IMD0041 - BANCO DE DADOS (databases)
-    * [Maratona](./IMD0041-banco-de-dados/final-project) 
+This project consists of a database for storing data about the scoreboard of a fictional programming contest similar to [ICPC](https://icpc.baylor.edu/). It also contains a GUI for executing CRUD operations. The project was developed as the last assignment of the IMD0041 - BANCO DE DADOS (databases) course.
